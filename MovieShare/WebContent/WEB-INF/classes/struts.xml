@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <package name="User" namespace="/" extends="struts-default">
+		
+		<action name="logoff" class="com.zx.action.UserAction" method="userLogOff">
+			<result name="success" type="redirect">/userlogin.jsp</result>
+		</action>	
+		<action name="usercheck" class="com.zx.action.UserAction" method="userInformationCheck">
+			<result name="success">/userinformation.jsp</result>
+			<result name="erro" type="redirect">/WEB-INF/pages/erro.jsp</result>
+		</action>
+		<action name ="editpsd" >
+			<result type="redirect">/passwordreset.jsp</result>
+		</action>
+		
+		<action name="admlog" class="com.zx.action.UserAction" method="administratorLogin">
+			<result name="success" type="redirect">/administratorindex.jsp</result>
+			<result name="input">/administratorlogin.jsp</result>
+			<result name="erro">/administratorlogin.jsp</result>
+		</action>
+
+    </package>
+    <package name="Movie" namespace="/" extends="struts-default">
+  		<action name="type" class="com.zx.action.MovieAction" method="getType">
+  			<result name="success">/addmovie.jsp</result>
+  		</action>
+  		<action name="addmovie" class="com.zx.action.MovieAction" method="addMovie">
+  			<result type="redirect" name="success">/addmovie.jsp</result>
+  		</action>
+  		
+  		<action name="checkmovie" class="com.zx.action.MovieAction" method="checkMovie">
+  			<result name="success">/moviecheck.jsp</result>
+  			<result name="erro">/WEB-INF/pages/erro.jsp</result>
+  		</action>
+  		<action name="lastmovie" class ="com.zx.action.MovieAction" method = "lastMovie">
+  			<result name="success">/filmmakercheck.jsp</result>
+  		</action>
+  		<!-- <action name = "bestmovie" class="com.zx.action.MovieAction" method="bestMovie">
+  			<result name = "success">/filmmakercheck.jsp</result>
+  		</action> -->
+  		<action name="mvpmovie" class="com.zx.action.MovieAction" method="mvpMovie">
+  			<result name="success">/index.jsp</result>
+  		</action>
+  		<action name="updatemovie" class="com.zx.action.MovieAction" method="getMovie">
+  			<result type="redirect" name="success" >/resetmovie.jsp</result>
+  			<result name="erro">/WEB-INF/pages/admerro.jsp</result>
+  		</action>
+  		<action name="resetmovie" class="com.zx.action.MovieAction" method="resetMovie">
+  			<result type="redirect" name="success" >/WEB-INF/pages/success.jsp</result>
+  			<result name="erro">/WEB-INF/pages/admerro.jsp</result>
+  		</action>
+    </package>
+    
+    <!-- AJAX -->
+    <package name="jsonmovie" namespace="/" extends="json-default">
+    	
+    	<action name="recommendmovie" class="com.zx.action.MovieAction" method="recommendMovie">
+  			<result name="success"  type="json">/index.jsp
+  				<param name="root">result</param>
+  			</result>
+  		</action>
+ 
+  		<action name="deletefilmmaker" class="com.zx.action.FilmmakerAction" method="deleteFilmmaker">
+    		<result name="success" type="json">/administratorindex.jsp
+  				<param name="root">result</param>
+    		</result>
+    	</action>
+    	<action name="deletemovie" class="com.zx.action.MovieAction" method="deleteMovie">
+  			<result name="success" type="json">
+  				<param name="root">result</param>
+  			/administratorindex.jsp</result>
+  		</action>
+  		<action name="login" class="com.zx.action.UserAction" method="userLogin">
+			<result name="success" type="json">/userlogin.jsp
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="markmovie" class="com.zx.action.MarkAction" method="markMovie">
+    		<result name="success" type="json">/moviecheck.jsp
+    			<param name="root">result</param>
+    		</result>
+    	</action>
+    	<action name="delcomment" class="com.zx.action.CommentAction" method="deleteMovieComment">
+    		<result name="success" type="json">/userinformation.jsp
+    			<param name="root">result</param>
+    		</result>
+    	</action>
+    	<action name="commentmovie" class="com.zx.action.CommentAction" method="commentMovie">
+       		<result name="success" type="json">/commentmovie.jsp
+       			<param name="root">result</param>
+       		</result>
+    	</action>
+    	
+    	
+    	<action name="reply" class="com.zx.action.ReplyAction" method="replyComment">
+    		<result name="success" type="json">/commentcheck.jsp
+    			<param name="root">result</param>
+    		</result>
+    	</action>
+    	<action name="registverf" class = "com.zx.action.UserAction" method="getVerficationUsedByRegist">
+    		<result name="success" type="json">/userregist.jsp
+    			<param name="root">result</param>
+    		</result>
+    	</action>
+    	
+    	<action name="regist" class="com.zx.action.UserAction" method="userRegist">
+			<result name="success" type="json">/userlogin.jsp
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="resetpsd" class="com.zx.action.UserAction" method="userPasswordReset">
+			<result name="success" type="json">/passwordreset.jsp
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="movieByDate" class="com.zx.action.MovieAction" method="getMovieByDate">
+  			<result name="success" type="json">/index.jsp
+  				<param name="root">result</param>
+  			</result>
+  		</action>
+    	
+    </package>
+  	
+	<package name="Filmmaker" namespace="/" extends="struts-default">
+    		<action name="job" class="com.zx.action.FilmmakerAction"  method="getJob">
+    			<result name="success">/addfilmmaker.jsp</result>
+    		</action>
+    		<action name="addfilmmaker" class="com.zx.action.FilmmakerAction" method="addFilmmaker">
+    			<result name="success">/addfilmmaker.jsp</result>
+    		</action>
+    		<action name="insertfilmmaker" class="com.zx.action.FilmmakerAction" >
+    			<result name="success" type="redirect">/addfilmmaker.jsp</result>
+    		</action>
+    		<action name="checkfilmmaker" class="com.zx.action.FilmmakerAction" method="checkFilmmaker">
+    			<result name="success">/filmmakercheck.jsp</result>
+    			<result name="erro">/WEB-INF/pages/erro.jsp</result>
+    		</action>
+    		<action name = "resetfilmmaker" class="com.zx.action.FilmmakerAction" method="resetFilmmaker">
+    			<result name="success">/WEB-INF/pages/success.jsp</result>
+    			<result name = "erro">/WEB-INF/pages/admerro.jsp</result>
+    			<result name = "input">/resetfilmmaker.jsp</result>
+    		</action>
+    		<action name = "updatefilmmaker" class="com.zx.action.FilmmakerAction" method="getFilmmaker">
+    			<result name="success" type="redirect">/resetfilmmaker.jsp</result>
+    			<result name="erro">/WEB-INF/pages/admerro.jsp</result>
+    		</action>
+    </package>
+    
+    <package name="Search" namespace="/" extends="struts-default">
+    	<action name="search" class="com.zx.action.SearchAction" method="searchInformation">
+    		<result name="success">/informationsearch.jsp</result>
+    		<result name="erro">/WEB-INF/pages/erro.jsp</result>
+    	</action>
+    	<action name="admsearch" class="com.zx.action.SearchAction" method="admSearchInformation">
+    		<result name="success" type="redirect">/administratorindex.jsp</result>
+    		<result name="erro">/WEB-INF/pages/admerro.jsp</result>
+    	</action>
+    </package>
+    <package name="Comment" namespace="/" extends="struts-default">
+    	<action name="writecomment" class="com.zx.action.CommentAction" >
+    		<result name="success">commentmovie.jsp</result>
+    	</action>
+    	
+    	<action name="ccomment" class="com.zx.action.CommentAction" method="checkComment">
+    		<result name="success">/commentcheck.jsp</result>
+    		<result name="erro">/WEB-INF/pages/erro.jsp</result>
+    	</action>
+    	<action name="allcomment" class="com.zx.action.CommentAction" method = "bestComment">
+    		<result name="success">/index.jsp</result>
+    	</action>
+    	
+    </package>
+    <include file="example.xml"/>
+    <!-- Add packages here -->
+</struts>
